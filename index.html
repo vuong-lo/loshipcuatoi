@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
   <head>
-    <meta http-equiv="refresh" content="10; url=https://music.youtube.com/playlist?list=PLbvStWPUS3JpTc_2t8U12eMvP1Mt6WgLY&si=t3YtnAF5dHaqYkwZ" />
+    <meta http-equiv="refresh" content="3; url=https://music.youtube.com/playlist?list=PLbvStWPUS3JpTc_2t8U12eMvP1Mt6WgLY&si=t3YtnAF5dHaqYkwZ" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đang chuyển hướng...</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -14,21 +16,20 @@
         justify-content: center;
         align-items: center;
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
+        background: #000;
+        animation: pulseGlow 6s ease-in-out infinite;
         color: white;
         text-align: center;
-        overflow: hidden; /* Ngăn chặn hiệu ứng nốt nhạc gây tràn trang */
+        overflow: hidden;
       }
 
       h1 {
         position: relative;
         font-size: 2.2em;
         font-weight: 700;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         opacity: 0;
-        animation: fadeIn 1s ease-in forwards;
+        animation: fadeIn 0.5s ease-in forwards;
       }
       
       .typing-text::after {
@@ -37,55 +38,62 @@
         animation: blink-caret 0.75s step-end infinite;
       }
       
-      .progress-container {
+      .spinner {
         margin-top: 80px;
-        width: 200px;
-        height: 30px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 15px;
-        overflow: hidden;
+        width: 80px;
+        height: 80px;
         position: relative;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      .progress-bar {
-        width: 0;
-        height: 100%;
-        background: #4a90e2;
-        position: relative;
-        overflow: hidden;
-        transition: width 0.05s linear;
-      }
-      
-      .progress-bar::before {
-        content: '';
+      .spinner .ring {
         position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(
-          45deg,
-          rgba(255, 255, 255, 0.2) 25%,
-          transparent 25%,
-          transparent 50%,
-          rgba(255, 255, 255, 0.2) 50%,
-          rgba(255, 255, 255, 0.2) 75%,
-          transparent 75%,
-          transparent
-        );
-        background-size: 30px 30px;
-        animation: wave 2s linear infinite;
+        border: 4px solid transparent;
+        border-top-color: #ff4d4d;
+        border-radius: 50%;
+        animation: spin 1.5s linear infinite;
       }
 
-      .progress-text {
-        margin-top: 10px;
-        font-size: 1.1em;
-        font-weight: 500;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      .spinner .ring:nth-child(2) {
+        border-top-color: #66e0ff;
+        animation-delay: 0.5s;
       }
-      
+
+      .spinner .ring:nth-child(3) {
+        border-top-color: #ff99cc;
+        animation-delay: 1s;
+      }
+
+      .spinner .center-note {
+        font-size: 2em;
+        color: rgba(255, 255, 255, 0.3);
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        position: absolute;
+      }
+
+      .music-note {
+        position: absolute;
+        font-size: 2em;
+        opacity: 0;
+        animation: flyAndFadeOut 5s linear forwards;
+        color: rgba(255, 255, 255, 0.7);
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .bubble {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        opacity: 0;
+        animation: bubbleRise 5s linear forwards;
+      }
+
       p {
         margin-top: 20px;
         font-size: 1em;
@@ -105,30 +113,22 @@
         background: rgba(255, 255, 255, 0.2);
         transform: scale(1.05);
       }
-      
-      .music-note {
-        position: absolute;
-        font-size: 2em;
-        opacity: 0;
-        animation: flyAndFadeOut 5s linear forwards;
-        color: rgba(255, 255, 255, 0.7);
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+      @keyframes pulseGlow {
+        0% { background-color: #1a1a1a; box-shadow: 0 0 20px rgba(255, 77, 77, 0.5); }
+        33% { background-color: #1a2b3c; box-shadow: 0 0 20px rgba(102, 224, 255, 0.5); }
+        66% { background-color: #2b1a3c; box-shadow: 0 0 20px rgba(255, 153, 204, 0.5); }
+        100% { background-color: #1a1a1a; box-shadow: 0 0 20px rgba(255, 77, 77, 0.5); }
       }
-      
-      @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-      
+
       @keyframes fadeIn {
         0% { opacity: 0; transform: translateY(-20px); }
         100% { opacity: 1; transform: translateY(0); }
       }
       
-      @keyframes wave {
-        0% { background-position: 0 0; }
-        100% { background-position: 30px 30px; }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
       
       @keyframes blink-caret {
@@ -139,22 +139,28 @@
       @keyframes flyAndFadeOut {
         0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
         10% { opacity: 1; }
-        100% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0; }
+        100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
+      }
+
+      @keyframes bubbleRise {
+        0% { transform: translateY(0); opacity: 0.7; }
+        100% { transform: translateY(-80vh) scale(1.2); opacity: 0; }
       }
     </style>
   </head>
   <body>
     <h1 class="typing-text"></h1>
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
+    <div class="spinner">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <i class="fas fa-music center-note"></i>
     </div>
-    <div class="progress-text" id="progressText">0%</div>
     <p>Nếu không được chuyển hướng thì bấm 
-      <a href="https://music.youtube.com/playlist?list=PLbvStWPUS3JpTc_2t8U12eMvP1Mt6WgLY&si=t3YtnAF5dHaqYkwZ">dô đây</a>.
+      <a href="https://music.youtube.com/playlist?list=PLbvStWPUS3JpTc_2t8U12eMvP1Mt6WgLY&si=t3YtnAF5dHaqYkwZ">dô đây</a>
     </p>
 
     <script>
-      // Hiệu ứng đánh máy
       const text = "Đang chuyển hướng, chờ xíu...";
       const typingText = document.querySelector('.typing-text');
       let i = 0;
@@ -163,34 +169,12 @@
         if (i < text.length) {
           typingText.innerHTML += text.charAt(i);
           i++;
-          setTimeout(typeWriter, 100);
+          setTimeout(typeWriter, 50);
         } else {
-          // Xóa hiệu ứng con trỏ nhấp nháy sau khi đánh máy xong
           typingText.classList.remove('typing-text');
         }
       }
       
-      // Hiệu ứng thanh tiến trình
-      let progress = 0;
-      const progressBar = document.getElementById('progressBar');
-      const progressText = document.getElementById('progressText');
-      const totalTime = 10000; // 10 giây
-      const increment = 100 / (totalTime / 50);
-      
-      const updateProgress = () => {
-        progress += increment;
-        if (progress > 100) progress = 100;
-        progressBar.style.width = progress + '%';
-        progressText.textContent = Math.round(progress) + '%';
-        if (progress >= 100) {
-          progressBar.style.background = '#4caf50'; // Đổi màu xanh lá khi hoàn tất
-        }
-        if (progress < 100) {
-          setTimeout(updateProgress, 50);
-        }
-      };
-      
-      // Hiệu ứng nốt nhạc bay lên
       function createMusicNote() {
         const note = document.createElement('i');
         note.className = 'fas fa-music music-note';
@@ -203,7 +187,7 @@
         note.style.top = startY + 'px';
         
         const endX = Math.random() * window.innerWidth;
-        const endY = -100; // Bay ra khỏi màn hình
+        const endY = -100;
         
         note.style.setProperty('--x', (endX - startX) + 'px');
         note.style.setProperty('--y', (endY - startY) + 'px');
@@ -212,17 +196,25 @@
           note.remove();
         });
       }
+
+      function createBubble() {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        document.body.appendChild(bubble);
+        
+        const startX = Math.random() * window.innerWidth;
+        bubble.style.left = startX + 'px';
+        bubble.style.bottom = '0';
+        
+        bubble.addEventListener('animationend', () => {
+          bubble.remove();
+        });
+      }
       
-      setInterval(createMusicNote, 500); // Tạo nốt nhạc mới mỗi 0.5 giây
+      setInterval(createMusicNote, 1500);
+      setInterval(createBubble, 1000);
       
-      // Khởi động các hiệu ứng
       typeWriter();
-      updateProgress();
-      
-      // Fallback redirect
-      setTimeout(() => {
-        window.location.href = 'https://music.youtube.com/playlist?list=PLbvStWPUS3JpTc_2t8U12eMvP1Mt6WgLY&si=t3YtnAF5dHaqYkwZ';
-      }, 10000);
     </script>
   </body>
 </html>
